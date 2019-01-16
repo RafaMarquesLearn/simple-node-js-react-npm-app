@@ -5,8 +5,8 @@ pipeline {
             args '-p 3000:3000'
         }
     }
-    environment {
-        CI = true // define environment variable
+    environment { // define environment variable
+        CI = true
     }
     stages {
         stage('Build') {
@@ -17,6 +17,13 @@ pipeline {
         stage('Test') {
             steps {
                 sh './jenkins/scripts/test.sh'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh './jenkins/scripts/deliver.sh' // do the deploy
+                input message: 'Are you finished using the web site? (Click "Exit" to kill the app)' // create a message on Jenkins to interact
+                sh './jenkins/scripts/kill.sh' // kill the app
             }
         }
     }
