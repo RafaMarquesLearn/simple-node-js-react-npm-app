@@ -22,7 +22,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh './jenkins/scripts/deliver.sh' // do the deploy
-                input message: 'Are you finished using the web site? (Click "Exit" to kill the app)' // create a message on Jenkins to interact
+                input message: 'Are you finished using the web site? (Click "Proceed" to kill the app)' // create a message on Jenkins to interact
                 sh './jenkins/scripts/kill.sh' // kill the app
             }
         }
